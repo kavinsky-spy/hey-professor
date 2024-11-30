@@ -1,12 +1,21 @@
 
+# phpstan
 ./vendor/bin/phpstan
 if [ $? -ne 0]; then
     echo "Opa! Erro PHPSTAN. Arrume antes de continuar 😑";
     exit 1;
 fi
 
+# run tests
+php artisan test --parallel
+if [ $? -ne 0]; then
+    echo "Opa! Erro Testes. Arrume antes de continuar 😑";
+    exit 1;
+fi
 
 
+
+# Format each staged file with laravel pint
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".php\{0,1\}$") || true
 
 
