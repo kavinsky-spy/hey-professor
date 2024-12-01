@@ -1,14 +1,14 @@
 
 # phpstan
 ./vendor/bin/phpstan analyse --memory-limit=2G
-if [ $? -ne 0]; then
+if [ $? -ne 0 ]; then
     echo "Opa! Erro PHPSTAN. Arrume antes de continuar 😑";
     exit 1;
 fi
 
 # run tests
 php artisan test --parallel
-if [ $? -ne 0]; then
+if [ $? -ne 0 ]; then
     echo "Opa! Erro Testes. Arrume antes de continuar 😑";
     exit 1;
 fi
