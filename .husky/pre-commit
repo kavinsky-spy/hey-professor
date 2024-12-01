@@ -1,6 +1,6 @@
 
 # phpstan
-./vendor/bin/phpstan analyze --memory-limit=2G
+./vendor/bin/phpstan analyse --memory-limit=2G
 if [ $? -ne 0]; then
     echo "Opa! Erro PHPSTAN. Arrume antes de continuar 😑";
     exit 1;
@@ -14,7 +14,6 @@ if [ $? -ne 0]; then
 fi
 
 
-
 # Format each staged file with laravel pint
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".php\{0,1\}$") || true
 
@@ -23,7 +22,6 @@ for FILE in $STAGED_FILES
 
 
 do
-
     ./vendor/bin/pint "${FILE}" > /dev/null >&1;
 
     git add "${FILE}"
