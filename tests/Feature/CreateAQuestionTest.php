@@ -39,5 +39,22 @@ it(
 
 it(
     'should have at least 10 characters',
-    function () {}
+    function () {
+
+        // Arrange
+        $user = User::factory()->create();
+        actingAs($user);
+
+        // Act
+        $request = post(
+            route('question.store'),
+            [
+                'question' => str_repeat('*', times: 8) . '?',
+            ]
+        );
+
+        // Assert
+        $request->assertSessionHasErrors(['question' => __('validation.min.string', ['min' => 10,'attribute' => 'question'])]);
+        assertDatabaseCount('questions', 0);
+    }
 );
