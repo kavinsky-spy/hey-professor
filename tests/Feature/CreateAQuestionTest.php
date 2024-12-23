@@ -31,11 +31,25 @@ it(
 
 
 it(
-    'should check if ends with question mark \'?\'',
+    'should check if ends with question mark ?',
     function () {
-        expect(true)->toBeTrue();
+        // Arrange
+        $user = User::factory()->create();
+        actingAs($user);
+
+        // Act
+        $request = post(
+            route('question.store'),
+            [
+                'question' => str_repeat('*', times: 10),
+            ]
+        );
+
+        // Assert
+        $request->assertSessionHasErrors(['question' => 'Are you sure that is a question? It is missing the question mark in the end.']);
+        assertDatabaseCount('questions', 0);
     }
-)->todo();
+);
 
 it(
     'should have at least 10 characters',
